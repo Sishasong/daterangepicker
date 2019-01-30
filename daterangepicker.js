@@ -87,7 +87,6 @@
 
     //some state information
     this.isShowing = false;
-    this.isSelecting = false;
     this.leftCalendar = {};
     this.rightCalendar = {};
 
@@ -486,7 +485,6 @@
 
       this.updateMonthsInView();
 
-      this.isSelecting = false;
       this.element.trigger('setstartdate.daterangepicker', [this, this.startDate]);
     },
 
@@ -520,7 +518,6 @@
         this.updateElement();
 
       this.updateMonthsInView();
-      this.isSelecting = false;
       this.element.trigger('setenddate.daterangepicker', [this, this.endDate]);
     },
 
@@ -1118,10 +1115,9 @@
       if (!this.isShowing) return;
 
       //incomplete date selection, revert to last values
-      if (!this.endDate || this.isSelecting) {
+      if (!this.endDate) {
         this.startDate = this.oldStartDate.clone();
         this.endDate = this.oldEndDate.clone();
-        this.isSelecting = false;
       }
 
       //if a new date range was selected, invoke the user callback function
@@ -1317,7 +1313,6 @@
       }
 
       if (this.singleDatePicker) {
-        this.isSelecting = false;
         this.setEndDate(this.startDate);
         if (!this.timePicker)
           this.clickApply();
