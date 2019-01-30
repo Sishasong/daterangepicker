@@ -1118,6 +1118,7 @@
       if (!this.endDate) {
         this.startDate = this.oldStartDate.clone();
         this.endDate = this.oldEndDate.clone();
+        this.element.trigger('canceled.daterangepicker', this)
       }
 
       //if a new date range was selected, invoke the user callback function
