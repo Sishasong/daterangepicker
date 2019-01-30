@@ -48,6 +48,7 @@
     this.timePicker24Hour = false;
     this.timePickerIncrement = 1;
     this.timePickerSeconds = false;
+    this.toggleMode = false;
     this.linkedCalendars = true;
     this.autoUpdateInput = true;
     this.alwaysShowCalendars = false;
@@ -224,6 +225,9 @@
 
     if (typeof options.showISOWeekNumbers === 'boolean')
       this.showISOWeekNumbers = options.showISOWeekNumbers;
+
+    if (typeof options.toggleMode === 'boolean')
+      this.toggleMode = options.toggleMode;
 
     if (typeof options.buttonClasses === 'string')
       this.buttonClasses = options.buttonClasses;
@@ -427,7 +431,7 @@
       .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
       .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this))
 
-    if (this.element.is('input') || this.element.is('button')) {
+    if (!this.toggleMode) {
       this.element.on({
         'click.daterangepicker': $.proxy(this.show, this),
         'focus.daterangepicker': $.proxy(this.show, this),
