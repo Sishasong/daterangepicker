@@ -832,9 +832,12 @@
             classes.push('active', 'end-date');
 
           // highlight MinSpan
-          if(this.startDate != null && this.minSpan != null){
+          if(this.startDate != null && this.minSpan){
+            console.log(this.minSpan)
             this.minSpanDate  = this.startDate.add(this.minSpan)
-            if (this.minSpanDate != null && calendar[row][col] > this.startDate && calendar[row][col] < this.minSpanDate){
+
+            console.log(this.minSpanDate)
+            if (this.minSpanDate != null && calendar[row][col] > this.startDate && calendar[row][col] <= this.minSpanDate){
               classes.push('in-range');
             }
           }
@@ -1251,6 +1254,7 @@
       var leftCalendar = this.leftCalendar;
       var rightCalendar = this.rightCalendar;
       var startDate = this.startDate;
+      var minSpanDate = this.minSpanDate;
       if (!this.endDate) {
         this.container.find('.drp-calendar tbody td').each(function(index, el) {
 
@@ -1263,12 +1267,10 @@
           var cal = $(el).parents('.drp-calendar');
           var dt = cal.hasClass('left') ? leftCalendar.calendar[row][col] : rightCalendar.calendar[row][col];
 
-          if ((dt.isAfter(startDate) && dt.isBefore(date)) || dt.isSame(date, 'day')) {
+          if (((dt.isAfter(startDate) && dt.isBefore(date)) || dt.isSame(date, 'day')) || dt.isSame(minSpanDate,'day') || (dt.isAfter(startDate) && dt.isBefore(minSpanDate) ) )  {
             $(el).addClass('in-range');
           } else {
-            if (dt.isAfter(this.minSpanDate)){
               $(el).removeClass('in-range');
-            }
           }
 
         });
