@@ -473,7 +473,7 @@
         this.startDate.minute(Math.round(this.startDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
 
       if (this.minSpan){
-        this.minSpanDate = this.startDate.add(this.minSpan)
+        this.minSpanDate = this.startDate.clone().add(this.minSpan, 'd')
       }
 
       if (this.minDate && this.startDate.isBefore(this.minDate)) {
@@ -833,18 +833,17 @@
 
           // highlight MinSpan
           if(this.startDate != null && this.minSpan){
-            console.log(this.minSpan)
-            this.minSpanDate  = this.startDate.add(this.minSpan)
-
-            console.log(this.minSpanDate)
             if (this.minSpanDate != null && calendar[row][col] > this.startDate && calendar[row][col] <= this.minSpanDate){
               classes.push('in-range');
             }
           }
 
           //highlight dates in-between the selected dates
-          if (this.endDate != null && calendar[row][col] > this.startDate && calendar[row][col] < this.endDate)
-            classes.push('in-range');
+          if (this.endDate != null && calendar[row][col] > this.startDate && calendar[row][col] < this.endDate){
+            if(!classes.includes('in-range')){
+              classes.push('in-range');
+            }
+          }
 
           //apply custom classes for this date
           var isCustom = this.isCustomDate(calendar[row][col]);
