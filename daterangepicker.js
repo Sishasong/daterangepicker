@@ -212,7 +212,7 @@
     if (typeof options.maxSpan === 'object')
       this.maxSpan = options.maxSpan;
 
-    if (typeof options.minSpan.isInteger())
+    if (Number.isInteger(options.minSpan))
       this.minSpan = options.minSpan;
 
     if (typeof options.dateLimit === 'object') //backwards compat
