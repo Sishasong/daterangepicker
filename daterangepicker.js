@@ -36,6 +36,8 @@
     this.minDate = false;
     this.maxDate = false;
     this.maxSpan = false;
+    this.minSpan = false;
+    this.minSpanDate = false;
     this.autoApply = false;
     this.singleDatePicker = false;
     this.showDropdowns = false;
@@ -53,7 +55,6 @@
     this.autoUpdateInput = true;
     this.alwaysShowCalendars = false;
     this.ranges = {};
-
 
     this.inputStartDate= false;
     this.inputEndDate = false;
@@ -210,6 +211,9 @@
 
     if (typeof options.maxSpan === 'object')
       this.maxSpan = options.maxSpan;
+
+    if (typeof options.minSpan.isInteger())
+      this.minSpan = options.minSpan;
 
     if (typeof options.dateLimit === 'object') //backwards compat
       this.maxSpan = options.dateLimit;
@@ -468,6 +472,10 @@
       if (this.timePicker && this.timePickerIncrement)
         this.startDate.minute(Math.round(this.startDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
 
+      if (this.minSpan){
+        this.minSpanDate = this.startDate.add(this.minSpan)
+      }
+
       if (this.minDate && this.startDate.isBefore(this.minDate)) {
         this.startDate = this.minDate.clone();
         if (this.timePicker && this.timePickerIncrement)
@@ -476,6 +484,12 @@
 
       if (this.maxDate && this.startDate.isAfter(this.maxDate)) {
         this.startDate = this.maxDate.clone();
+        if (this.timePicker && this.timePickerIncrement)
+          this.startDate.minute(Math.floor(this.startDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
+      }
+
+      if (this.maxDate && this.minSpanDate.isAfter(this.maxDate)) {
+        this.minSpanDate = this.maxDate.clone();
         if (this.timePicker && this.timePickerIncrement)
           this.startDate.minute(Math.floor(this.startDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
       }
@@ -816,6 +830,14 @@
           //highlight the currently selected end date
           if (this.endDate != null && calendar[row][col].format('YYYY-MM-DD') == this.endDate.format('YYYY-MM-DD'))
             classes.push('active', 'end-date');
+
+          // highlight MinSpan
+          if(this.startDate != null && this.minSpan != null){
+            this.minSpanDate  = this.startDate.add(this.minSpan)
+            if (this.minSpanDate != null && calendar[row][col] > this.startDate && calendar[row][col] < this.minSpanDate){
+              classes.push('in-range');
+            }
+          }
 
           //highlight dates in-between the selected dates
           if (this.endDate != null && calendar[row][col] > this.startDate && calendar[row][col] < this.endDate)
@@ -1244,7 +1266,9 @@
           if ((dt.isAfter(startDate) && dt.isBefore(date)) || dt.isSame(date, 'day')) {
             $(el).addClass('in-range');
           } else {
-            $(el).removeClass('in-range');
+            if (dt.isAfter(this.minSpanDate)){
+              $(el).removeClass('in-range');
+            }
           }
 
         });
@@ -1290,6 +1314,9 @@
       } else if (!this.endDate && date.isBefore(this.startDate)) {
         //special case: clicking the same date for start/end,
         //but the time of the end date is before the start date
+        if (this.minSpanDate && date.isBefore(this.minSpanDate)){
+          return;
+        }
         this.setEndDate(this.startDate.clone());
       } else { // picking end
         if (this.timePicker) {
@@ -1304,7 +1331,9 @@
           var minute = parseInt(this.container.find('.right .minuteselect').val(), 10);
           var second = this.timePickerSeconds ? parseInt(this.container.find('.right .secondselect').val(), 10) : 0;
           date = date.clone().hour(hour).minute(minute).second(second);
-          this.dispatchEvent('')
+        }
+        if (this.minSpanDate && date.isBefore(this.minSpanDate)){
+          return;
         }
         this.setEndDate(date.clone());
         if (this.autoApply) {
