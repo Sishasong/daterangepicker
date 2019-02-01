@@ -227,7 +227,7 @@ $daterangepicker-ranges-color-active : #fff;
   }
 
   .off{
-    &.in-range, &.start-date, &.end-date{
+    &.in-range, &.start-date, &.end-date, &.available{
       background-color: $daterangepicker-off-bg-color;
       border-color: transparent;
       color: $daterangepicker-off-color;
@@ -359,6 +359,10 @@ $daterangepicker-ranges-color-active : #fff;
     }
   }
 
+  .drp-close{
+    display : none;
+  }
+
   &.fullscreen-mode {
     top: 0!important;
     bottom: 0!important;
@@ -372,6 +376,28 @@ $daterangepicker-ranges-color-active : #fff;
     border: none;
     border-radius: 0;
     position: fixed;
+
+    &:after,&:before{
+      display : none;
+    }
+
+    .daterangepicker-wrapper{
+      flex-direction : column;
+      align-items: center;
+    }
+    .drp-calendar{
+      &.left, &.right{
+        padding : 0;
+      }
+    }
+    .ranges{
+      margin : 0;
+    }
+
+    .drp-close{
+      display : flex;
+      justify-content: flex-end;
+    }
   }
 }
 

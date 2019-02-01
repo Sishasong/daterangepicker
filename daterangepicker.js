@@ -56,6 +56,7 @@
     this.linkedCalendars = true;
     this.autoUpdateInput = true;
     this.alwaysShowCalendars = false;
+    this.closeButton = '<span>X</span>';
     this.ranges = {};
 
     this.inputStartDate= false;
@@ -102,10 +103,15 @@
     //data-api options will be overwritten with custom javascript options
     options = $.extend(this.element.data(), options);
 
+    if(typeof this.closeButton === 'string'){
+      this.closeButton = options.closeButton
+    }
+
     //html template for the picker UI
     if (typeof options.template !== 'string' && !(options.template instanceof $))
       options.template =
         '<div class="daterangepicker">' +
+        '<div class="drp-close">' + this.closeButton + '</div>' +
         '<div class="ranges"></div>' +
         '<div class="drp-calendar left">' +
         '<div class="calendar-table"></div>' +
