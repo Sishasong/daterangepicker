@@ -1427,7 +1427,7 @@
     clickCancel: function(e) {
       this.startDate = this.oldStartDate;
       this.endDate = this.oldEndDate;
-      this.hide();
+      this.hide(e);
       this.element.trigger('cancel.daterangepicker', this);
     },
 
