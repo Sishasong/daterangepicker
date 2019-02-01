@@ -137,7 +137,9 @@ $daterangepicker-ranges-color-active : #fff;
   }
 
   &.auto-apply{
-    display: none;
+    .drp-buttons {
+      display: none;
+    }
   }
 
   .drp-calendar{
@@ -355,6 +357,21 @@ $daterangepicker-ranges-color-active : #fff;
         color: $daterangepicker-ranges-color-active; //#fff;
       }
     }
+  }
+
+  &.fullscreen-mode {
+    top: 0!important;
+    bottom: 0!important;
+    left: 0!important;
+    right: 0!important;
+    width: 100%;
+    min-height: 100%;
+    overflow-y : scroll;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    position: fixed;
   }
 }
 
