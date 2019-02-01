@@ -147,7 +147,7 @@ $daterangepicker-closer-button-color-hover: darkent($daterangepicker-closer-butt
 
   .drp-calendar{
     display: none;
-    max-width: 270px;
+    max-width: 290px;
     &.left{
       padding: 8px 0 8px 8px;
     }
@@ -391,6 +391,9 @@ $daterangepicker-closer-button-color-hover: darkent($daterangepicker-closer-butt
     .drp-calendar{
       &.left, &.right{
         padding : 0;
+      }
+      th, td{
+        width : 38px
       }
     }
     .ranges{
