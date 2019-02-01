@@ -55,12 +55,12 @@ $daterangepicker-ranges-color-active : #fff;
     top: -7px;
     border-right: 7px solid transparent;
     border-left: 7px solid transparent;
-    border-bottom: 7px solid #ccc;
+    border-bottom: 7px solid $daterangepicker-border-color;
   }
   &:after{
     top: -6px;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid #fff;
+    border-bottom: 6px solid $daterangepicker-bg;
     border-left: 6px solid transparent;
   }
 
