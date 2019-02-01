@@ -444,6 +444,8 @@
       .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
       .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this))
 
+    this.container.on('click.daterangepicker', '.drp-close', $.proxy(this.hide, this))
+
     if (!this.toggleMode) {
       this.element.on({
         'click.daterangepicker': $.proxy(this.show, this),
