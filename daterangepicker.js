@@ -8,10 +8,11 @@
 // Following the UMD template https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['moment', 'jquery'], function (moment, jquery) {
+    define(['moment', 'jquery', 'enquire.js'], function (moment, jquery, enquire) {
       if (!jquery.fn) jquery.fn = {}; // webpack server rendering
       if (typeof moment !== 'function' && moment.default) moment = moment.default
-      return factory(moment, jquery);
+      if (typeof enquire !== 'function') enquire = require('enquire.js')
+      return factory(moment, jquery, enquire);
     });
   } else if (typeof module === 'object' && module.exports) {
     var jQuery = (typeof window != 'undefined') ? window.jQuery : undefined;
@@ -20,12 +21,13 @@
       if (!jQuery.fn) jQuery.fn = {};
     }
     var moment = (typeof window != 'undefined' && typeof window.moment != 'undefined') ? window.moment : require('moment');
-    module.exports = factory(moment, jQuery);
+    var enquire = (typeof window != 'undefined' && typeof window.enquire != 'undefined') ? window.enquire : require('enquire.js');
+    module.exports = factory(moment, jQuery, enquire);
   } else {
     // Browser globals
-    root.daterangepicker = factory(root.moment, root.jQuery);
+    root.daterangepicker = factory(root.moment, root.jQuery, root.enquire);
   }
-}(this, function(moment, $) {
+}(this, function(moment, $, enquire) {
   var DateRangePicker = function(element, options, cb) {
 
     //default settings for options
@@ -88,6 +90,7 @@
 
     //some state information
     this.isShowing = false;
+    this.isMobile = false;
     this.leftCalendar = {};
     this.rightCalendar = {};
 
@@ -447,6 +450,21 @@
       this.element.on('keydown.daterangepicker', $.proxy(this.toggle, this));
     }
 
+    // Handle mobile
+    enquire.register("screen and (max-width : 480px)", {
+      match: () => {
+        this.defineIsMobile(true)
+        this.element.trigger('mobiledisplay.daterangepicker')
+      },
+      unmatch: () => {
+        this.defineIsMobile(false)
+        this.element.trigger('normaldislay.daterangepicker')
+      }
+    })
+
+    this.element.on('mobiledisplay.daterangepicker', $.proxy(this.move, this));
+    this.element.on('normaldislay.daterangepicker', $.proxy(this.move, this));
+
     //
     // if attached to a text input, set the initial value
     //
@@ -543,6 +561,10 @@
       return false;
     },
 
+    defineIsMobile: function(isMobile){
+      this.isMobile = isMobile
+    },
+
     updateView: function() {
       if (this.timePicker) {
         this.renderTimePicker('left');
@@ -552,6 +574,7 @@
         } else {
           this.container.find('.right .calendar-time select').removeAttr('disabled').removeClass('disabled');
         }
+
       }
       if (this.endDate)
         this.container.find('.drp-selected').html(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
@@ -1064,7 +1087,7 @@
       else
         containerTop = this.element.offset().top + this.element.outerHeight() - parentOffset.top;
       this.container[this.drops == 'up' ? 'addClass' : 'removeClass']('drop-up');
-
+      this.container[this.isMobile ? 'addClass' : 'removeClass']('fullscreen-mode')
       if (this.opens == 'left') {
         this.container.css({
           top: containerTop,
@@ -1269,7 +1292,7 @@
           if (((dt.isAfter(startDate) && dt.isBefore(date)) || dt.isSame(date, 'day')) || dt.isSame(minSpanDate,'day') || (dt.isAfter(startDate) && dt.isBefore(minSpanDate) ) )  {
             $(el).addClass('in-range');
           } else {
-              $(el).removeClass('in-range');
+            $(el).removeClass('in-range');
           }
 
         });
