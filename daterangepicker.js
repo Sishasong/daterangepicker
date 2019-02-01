@@ -445,7 +445,6 @@
       .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this))
 
     this.container.on('click.daterangepicker', '.drp-close', $.proxy(this.hide, this))
-    this.container.on('click.daterangepicker', '.drp-close', $.proxy(this.stopPropagation, this))
 
     if (!this.toggleMode) {
       this.element.on({
@@ -1189,6 +1188,10 @@
       this.container.hide();
       this.element.trigger('hide.daterangepicker', this);
       this.isShowing = false;
+
+
+      //This is to cancel the blur event handler if the mouse was in one of the inputs
+      e.stopPropagation();
     },
 
     toggle: function(e) {
