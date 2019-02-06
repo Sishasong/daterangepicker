@@ -1,3 +1,5 @@
+$daterangepicker-font : arial, sans-serif;
+
 $daterangepicker-bg: #fff;
 $daterangepicker-color: inherit;
 $daterangepicker-border-color: #ddd;
@@ -27,7 +29,7 @@ $daterangepicker-ranges-bg-color-active : #08c;
 $daterangepicker-ranges-color-active : #fff;
 
 $daterangepicker-closer-button-color: #ccc;
-$daterangepicker-closer-button-color-hover: darkent($daterangepicker-closer-button-color, 10);
+$daterangepicker-closer-button-color-hover: darken($daterangepicker-closer-button-color, 10);
 
 
 .daterangepicker {
@@ -44,7 +46,7 @@ $daterangepicker-closer-button-color-hover: darkent($daterangepicker-closer-butt
   left: 20px;
   z-index: 3001;
   display: none;
-  font-family: arial;
+  font-family: $daterangepicker-font;
   font-size: 15px;
   line-height: 1em;
 
@@ -147,7 +149,10 @@ $daterangepicker-closer-button-color-hover: darkent($daterangepicker-closer-butt
 
   .drp-calendar{
     display: none;
-    max-width: 290px;
+    max-width: 90%;
+    @media screen and (min-width : 768px){
+      max-width : 290px;
+    }
     &.left{
       padding: 8px 0 8px 8px;
     }
@@ -393,7 +398,8 @@ $daterangepicker-closer-button-color-hover: darkent($daterangepicker-closer-butt
         padding : 0;
       }
       th, td{
-        width : 38px
+        width : 45px;
+        height : 30px;
       }
     }
     .ranges{
