@@ -1,35 +1,35 @@
 $daterangepicker-font : arial, sans-serif;
 
-$daterangepicker-bg: #fff;
-$daterangepicker-color: inherit;
-$daterangepicker-border-color: #ddd;
+$daterangepicker-bg: #fff !default;
+$daterangepicker-color: inherit  !default;
+$daterangepicker-border-color: #ddd  !default;
 
-$daterangepicker-week-bg-color: $daterangepicker-bg;
-$daterangepicker-week-color: #ccc;
+$daterangepicker-week-bg-color: $daterangepicker-bg  !default;
+$daterangepicker-week-color: #ccc  !default;
 
-$daterangepicker-available-color: $daterangepicker-color;
-$daterangepicker-available-bg-color: $daterangepicker-bg ;
-$daterangepicker-available-bg-color-hover: #eee;
+$daterangepicker-available-color: $daterangepicker-color !default;
+$daterangepicker-available-bg-color: $daterangepicker-bg !default;
+$daterangepicker-available-bg-color-hover: #eee !default;
 
-$daterangepicker-in-range-color: #000;
-$daterangepicker-in-range-bg-color: #ebf4f8;
+$daterangepicker-in-range-color: #000 !default;
+$daterangepicker-in-range-bg-color: #ebf4f8 !default;
 
-$daterangepicker-off-bg-color: $daterangepicker-bg;
-$daterangepicker-off-color: #999;
+$daterangepicker-off-bg-color: $daterangepicker-bg !default;
+$daterangepicker-off-color: #999 !default;
 
-$daterangepicker-active-color: #fff;
-$daterangepicker-active-bg-color: #357ebd;
-$daterangepicker-active-color-hover: $daterangepicker-active-color;
-$daterangepicker-active-bg-color-hover: $daterangepicker-active-bg-color;
+$daterangepicker-active-color: #fff !default;;
+$daterangepicker-active-bg-color: #357ebd !default;;
+$daterangepicker-active-color-hover: $daterangepicker-active-color !default;
+$daterangepicker-active-bg-color-hover: $daterangepicker-active-bg-color !default;
 
-$daterangepicker-timepicker-bg-color: #eee;
-$daterangepicker-timepicker-border-color : #eee;
+$daterangepicker-timepicker-bg-color: #eee !default;
+$daterangepicker-timepicker-border-color : #eee !default;
 
-$daterangepicker-ranges-bg-color-active : #08c;
-$daterangepicker-ranges-color-active : #fff;
+$daterangepicker-ranges-bg-color-active : #08c !default;
+$daterangepicker-ranges-color-active : #fff !default;
 
-$daterangepicker-closer-button-color: #ccc;
-$daterangepicker-closer-button-color-hover: darken($daterangepicker-closer-button-color, 10);
+$daterangepicker-closer-button-color: #ccc !default;
+$daterangepicker-closer-button-color-hover: darken($daterangepicker-closer-button-color, 10) !default;
 
 
 .daterangepicker {
