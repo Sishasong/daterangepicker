@@ -459,7 +459,7 @@
     }
 
     // Handle mobile
-    let self = this
+    var self = this
     enquire.register("screen and (max-width : 480px)", {
       match: function() {
         self.defineIsMobile(true)
