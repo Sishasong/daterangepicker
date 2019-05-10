@@ -459,15 +459,15 @@
     }
 
     // Handle mobile
-    let that = this
+    let self = this
     enquire.register("screen and (max-width : 480px)", {
       match: function() {
-        that.defineIsMobile(true)
-        that.element.trigger('mobiledisplay.daterangepicker')
+        self.defineIsMobile(true)
+        self.element.trigger('mobiledisplay.daterangepicker')
       },
       unmatch: function() {
-        that.defineIsMobile(false)
-        that.element.trigger('normaldislay.daterangepicker')
+        self.defineIsMobile(false)
+        self.element.trigger('normaldislay.daterangepicker')
       }
     })
 
