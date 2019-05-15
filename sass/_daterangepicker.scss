@@ -217,7 +217,7 @@ $daterangepicker-closer-button-color-hover: darken($daterangepicker-closer-butto
       &:hover{
         background-color: $daterangepicker-available-bg-color-hover;
         border-color: transparent;
-        color: inherit;
+        color: $daterangepicker-available-color-hover;;
       }
     }
 
