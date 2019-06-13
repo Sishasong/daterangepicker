@@ -152,6 +152,7 @@ $daterangepicker-closer-button-color-hover: darken($daterangepicker-closer-butto
   .drp-calendar{
     display: none;
     max-width: 90%;
+    margin : 0 auto;
     &.left{
       padding: 8px 0 8px 8px;
     }
